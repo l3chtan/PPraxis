@@ -1,0 +1,77 @@
+
+			/*	if(command.equals("load")){
+					if(sc.hasNext()){
+						eof = sc.next();
+					} else {
+						input_error = true;
+						break;
+					}
+					while(!loot.equals(eof)){
+						temp += loot + '\n';
+						loot = sc.next();
+					}
+					if(!loot.equals(eof)){
+						input_error = true;
+						break;
+					}
+					image = new LoadOperation(temp).execute(image);
+				} else if(command.equals("replace")){
+
+					char c1 = ' ', c2 = ' ';
+					temp = sc.next();
+					c1 = temp.charAt(0);
+					temp = sc.next();
+					c2 = temp.charAt(0);
+
+					image = new ReplaceOperation(c1, c2).execute(image);
+				} else if(command.equals("grow")){		
+					String s = "";
+
+					if(sc.hasNext()){
+						s = sc.next();
+					} else {
+						input_error = true;
+						break;
+					}
+					char c = s.charAt(0);
+					image = new GrowRegionOperation(c).execute(image);
+				} else if(command.equals("fill")){
+					int x,y;
+					String a = "";
+
+					if(sc.hasNextInt()){
+						x = sc.nextInt();
+					} else {
+						input_error = true;
+						break;
+					}
+
+					if(sc.hasNextInt()){
+						y = sc.nextInt();
+					} else {
+						input_error = true;
+						break;
+					}
+					if(sc.hasNext()){
+						a = sc.next();
+					} else {
+						input_error = true;
+					}
+
+					char c = a.charAt(0);
+				*/	/*
+					 *Sind die Koordinaten, an denen der fill-Algorithmus beginnen soll, außerhalb des Bildbereiches wird "OPERATION FAILD" ausgegeben.
+					 */
+			//		image = new FillOperation(x, y, c).execute(image);
+
+				/*} else if(command.equals("filter")){
+					if(!sc.next().equals("median")){
+						input_error = true;
+						break;
+					}
+					image = new MedianOperation().execute(image);	
+				} else if(command.equals("clear")){
+					image =	new ClearOperation().execute(image);
+				} else if(command.equals("transpose")){
+					image = new TransposeOperation().execute(image);
+				}else */

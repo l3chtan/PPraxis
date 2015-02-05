@@ -1,0 +1,79 @@
+public class AsciiStack{
+
+	private int increment;
+	private AsciiImage[] imgStack;
+
+	public AsciiStack(int increment){
+		this.increment = increment;
+		imgStack = new AsciiImage[increment];
+	}
+		
+	public int capacity(){
+		
+		return imgStack.length;
+	}
+		
+	public boolean empty(){
+	
+		boolean empty = false;
+	
+		if(size() == 0){
+			empty = true;
+		}
+		return empty;
+	}
+		
+	public AsciiImage pop(){
+	
+		AsciiImage[] temp;
+		int n = 0;
+		
+		AsciiImage img = peek();
+		
+		if(peek() == null){
+			return img;
+		}
+		
+			n = size()-1;
+			imgStack[size()-1] = null;
+			if(n < capacity()-increment){
+				temp = new AsciiImage[capacity()-increment];
+				System.arraycopy(imgStack, 0, temp, 0, temp.length);
+				imgStack = temp;
+			}
+			//System.out.println(img);
+		return img;
+	}
+		
+	public AsciiImage peek(){
+
+		if(empty() == false){
+			return imgStack[size()-1];
+		} else {
+			return null;
+		}
+	}
+		
+	public void push(AsciiImage img){
+		int n = size()+1;
+		if(n > capacity()){
+		AsciiImage[] temp = new AsciiImage[capacity()+increment];
+			
+			System.arraycopy(imgStack, 0, temp, 0, imgStack.length);
+			imgStack = temp;
+		}
+			imgStack[n-1] = img;
+	}
+		
+	public int size(){
+		
+		int count = 0;
+		
+		for(int d=0;d<imgStack.length;d++){
+			if(imgStack[d] != null){
+				count++;
+			}
+		}
+		return count;
+	}
+}

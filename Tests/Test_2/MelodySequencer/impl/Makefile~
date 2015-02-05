@@ -1,0 +1,14 @@
+MelodySequencer.class : MelodySequencer.java
+	javac MelodySequencer.java
+#	
+SongBook.class : SongBook.java
+	javac SongBook.java
+#	
+Melody.class : Melody.java
+	javac Melody.java
+#	
+Note.class : Note.java
+	javac Note.java
+#	
+clean: 
+	rm *.class

@@ -1,0 +1,130 @@
+import java.util.Scanner;
+
+public class BarPlot{	
+	
+	public static void main(String[] args){
+		
+		Scanner sc = new Scanner(System.in);
+		
+		boolean error = false;						//Dient als Kennzeichnung ob die Eingabe gültig ist.
+		char barChar = '#';						//Das Raute Zeichen wird als character abgespeichert.
+		String drawLabel="";						//Enthält, den durch die Methode drawLabel erzeugten String, der am Ende zusammen mit drawBar ausgegeben wird.
+		String drawBar="";						//Enthält, den durch die Methode drawBar erzeugten String, der am Ende zusammen mit drawLabel ausgegen wird.
+		
+										//Speichert das Raute Zeichen als String ab, damit es and die Methode drawBar übergeben werden kann.
+		String barStr = "";	
+		barStr += barChar;	
+		
+		while(sc.hasNext() && error ==	 false){			//Die While-Schleife wird so oft wiederholt wie die Eingabe Zeilen hat, bzw bis ein Fehler auftritt.
+			
+			if(sc.hasNext()){					//Überprüft ob etwas zum Einlesen vorhanden ist, und liest es gegebenenfalls als String ein und übergibt den String an drawLabel mit der Zahl 7 (für die Länge des Labels).
+				String label = sc.next();	
+				drawLabel=drawLabel(label, 7);
+			} else {
+				error = true;					//Ist keine Eingabe vorhanden, wird ein Fehler ausgegeben.
+			}
+			
+			/*Überprüft ob darauffolgende Eingabe eine Zahl ist. Ist dies zutreffend, 
+			  wird noch überprüft ob es sich um einen int oder double Wert handelt,
+			  und ob dieser Wert innerhalb der entsprechenden Grenzen ist 
+			  (Bis 30 für int Werte und bis 1.0 für double Werte).
+			  Ist alles in Ordnung der String barStr (der das Raute Symbol speichert) 
+			  mit dem Zahlenwert and die Methode drawBar übergeben.
+			  Tritt jedoch ein Fehler auf, wird "error" auf true gesetzt und die Schleife abgebrochen.*/
+			if(sc.hasNextInt()){			
+				int bar = sc.nextInt();		
+				if(bar >30){			
+					error = true;		
+					break;
+				} else {
+					drawBar=drawBar(barStr, bar);
+				}
+			} else if(sc.hasNextDouble()){
+				double bar = sc.nextDouble();
+				if(bar > 1.0){
+					error = true;
+					break;
+				} else {
+					drawBar=drawBar(barStr, bar);
+				}
+			}  else {
+				error = true;
+				break;
+			}
+			
+			System.out.println(drawLabel + "|"+drawBar+"|");	//Gibt drawLabel und drawBar in entsprechender Formatierung aus.
+		}
+		
+		if(error==true){
+			System.out.println("INPUT ERROR");			//Gibt gegebenenfalls den Fehler "INPUT ERROR" aus.
+		}
+	}
+	
+	static String repeat(char c, int n){  				//Zeichnet mit den Eingabewerten aus den drawBar Methoden einen Balken.
+		
+		String tmpBar = "";
+		for(int p=0;p<n;p++){
+			tmpBar += c;
+		}
+		
+		return tmpBar;
+	}
+	
+	static String drawLabel(String label, int n){				//Erstellt die Beschriftung zu den Balken
+		
+		String newLabel = "";
+		
+		/*Die if-Abfrage unterscheidet zwischen drei Situationen.
+		  Ist die Eingabe zu lang, wird sie abgeschnitten wie bei [1]. 
+		  Ist sie zu kurz wird die Eingabe direkt übernommen und der rest mit Leerzeichen aufgefüllt, 
+		  bis die gewünschte Länge erreicht ist [2].
+		  Hat der String die passende Länge wird er eins zu eins übernommen [3]*/
+		if(label.length() > n){			//[1]
+			for(int i=0;i<=n;i++){
+				newLabel += label.charAt(i);
+			}
+		} else if(label.length() < n){			//[2]
+			newLabel = label;
+			for(int j=label.length();j<=n;j++){
+				newLabel += ' ';
+			}
+		} else {					//[3]
+			newLabel = label;
+		}
+		
+		return newLabel;
+	}
+	
+	static String drawBar(String label, int value){			//Erstellt den Balken aus int Werten.
+		
+		String bar = "";
+		char barChar = ' ';
+		barChar = label.charAt(0);
+		/*Die Methode führt immer sofort die Methode repeat aus um einen Balken der Länge "value" zu erzeugen. 
+		  Danach wird überprüft ob "value" kleiner als 30 ist. Trifft das zu, wird nochmal repeat aufgerufen, der dann
+		  einen Balken bestehend aus Leerzeichen erzeugt. 
+		  Um eine Gesamtlänge von 30 zu erzeugen werden beide Teile noch zusammen gefügt.*/
+		bar = repeat(barChar, value);
+		  
+		  if(value < 30){				
+			int diff = 30-value;
+			bar += repeat(' ', diff);
+			
+		} /*else if(value > 30){
+			error=true;
+		} */
+		return bar;
+	}
+	
+	static String drawBar(String label, double value){			//Erstellt einen Balken aus double Werten.
+		
+		double math = 0.0;
+		/*Die Methode wandelt den double Wert in einen entsprechenden 
+		  int Wert um und übergibt diesen mit dem String "label" and die erste drawBar Methode
+		  und gibt diese dann aus.*/
+		math = value*30;
+		int math2 = (int) Math.round(math);
+		
+		return drawBar(label, math2);
+	}
+}

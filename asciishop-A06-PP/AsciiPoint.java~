@@ -1,0 +1,25 @@
+public class AsciiPoint{
+
+private int x, y;
+
+	public AsciiPoint(int x, int y){
+		//erzeugt einen Punkt mit den angegebenen Koordinaten.
+		this.x = x;
+		this.y = y;
+	}
+	
+	public int getX(){
+		//gibt die x-Koordinate des Punktes zurück.
+		return x;
+	}
+	
+	public int getY(){
+		//gibt die y-Koordinate des Punktes zurück.
+		return y;
+	}
+	
+	public String toString(){
+		//gibt eine lesbare Darstellung des Punktes in der Form (x,y) zurück.
+		return String.format("(%d,%d)", getX(), getY());
+	}
+}

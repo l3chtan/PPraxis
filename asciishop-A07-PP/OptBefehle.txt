@@ -1,0 +1,68 @@
+
+
+			else if(command.equals("line") && sc.hasNextInt()){
+				int x0,y0,x1,y1;
+				String ch = "";
+
+				if(sc.hasNextInt()){
+					x0=sc.nextInt();
+				} else {
+					input_error = true;
+					break;
+				}if(sc.hasNextInt()){
+					y0=sc.nextInt();
+				} else {
+					input_error = true;
+					break;
+				}if(sc.hasNextInt()){
+					x1=sc.nextInt();
+				} else {
+					input_error = true;
+					break;
+				}if(sc.hasNextInt()){
+					y1=sc.nextInt();
+				} else {
+					input_error = true;
+					break;
+				}
+				if(sc.hasNext()){
+					ch = sc.next();
+				} else {
+					input_error = true;
+					break;
+				}
+				char c = ch.charAt(0);
+
+				image.drawLine(x0,y0,x1,y1,c);
+
+			} 
+			} else if(command.equals("centroid")){
+				String s = "";
+
+				if(sc.hasNext()){
+					s = sc.next();
+				} else {
+					input_error = true;
+					break;
+				}
+				char c = s.charAt(0);
+				if(image.getCentroid(c) == null){
+					System.out.println("null");
+				} else {
+					System.out.println(image.getCentroid(c).toString());
+				}
+			if(command.equals("symmetric-h")){
+
+			  if(image.symmetric() == true){
+			  System.out.println("true");
+			  } else {
+			  System.out.println("false");
+			  }
+			}
+
+			if(command.equals("uniqueChars")){
+			System.out.println(image.getUniqueChars());	
+			}
+			if(command.equals("flip-v")){
+			image.flipV();
+			}

@@ -1,0 +1,198 @@
+public class AsciiImage{
+	
+	private int height, width; 
+	private char[][] picture;
+	
+	public AsciiImage(int width, int height){
+		
+		this.height = height;
+		this.width = width;
+		
+		picture = new char[width][height];
+		clear();
+	}
+	
+	public void clear(){
+	
+		for(int i=0;i<width;i++){
+			for(int j=0;j<height;j++){
+				picture[i][j] = '.';
+			}
+		}
+	}
+	
+	public int getWidth(){
+		
+		return width;
+	}
+	
+	public int getHeight(){
+		
+		return height;
+	}
+	
+	public String toString(){
+		
+		String img_out = "";
+		
+		for(int m=0;m<height;m++){
+			for(int n=0;n<width;n++){
+				img_out += getPixel(n,m);
+			}
+			img_out += String.format("%n");
+		}
+
+		return img_out;
+	}
+	/*
+	public int getUniqueChars(){
+		
+		String chars = "";
+		chars += line.charAt(0);
+
+		for(int i=0;i<=line.length()-1;i++){
+
+				String ha = "";
+				ha += line.charAt(i);
+				if(!chars.contains(ha)){
+					chars += line.charAt(i);
+				}
+		}
+		
+		return chars.length();
+	}
+	*/
+	public char getPixel(int x, int y){
+
+		return picture[x][y];
+	}
+	
+	public void setPixel(int x, int y, char c){
+		
+		picture[x][y] = c;
+	}
+	/*
+	public void flipV(){
+		
+		String temp = "";
+		
+		for(int m=line.length();m>=width;m-=width){
+			temp += line.substring(m-width, m);
+
+		}
+		line = temp;
+	}
+	*/
+	public void transpose(){
+		char[][] temp = new char[height][width];
+
+		for(int n=0;n<width;n++){
+			for(int m=0;m<height;m++){
+				temp[m][n] =getPixel(n,m);
+			}
+		}
+		
+		picture = temp;
+		
+		int cache = height;
+		height = width;
+		width = cache;
+	}
+	
+	public void fill(int x, int y, char c){
+		String temp = "";
+		char rep = getPixel(x, y);
+		
+		setPixel(x,y,c);
+		
+		if(y<height-1 && getPixel(x, y+1) == rep){
+			fill(x, y+1, c);
+		}
+		if(x<width-1 && getPixel(x+1, y) == rep){
+			fill(x+1, y, c);
+		}
+		if(y>0 && getPixel(x, y-1) == rep){
+			fill(x, y-1, c);
+		}
+		if(x>0 && getPixel(x-1, y) == rep){
+			fill(x-1, y, c);
+		}
+	}
+	
+	public void drawLine(int x0, int y0, int x1, int y1, char c){
+		double dx = 0.0;
+		double dy = 0.0;
+		int cache = 0;
+		boolean turn = false;
+		
+		double steigung = 0.0;
+		double y = 0;
+
+		if(Math.abs(y1-y0)>Math.abs(x1-x0)){
+			
+			cache = x0;
+			x0 = y0;
+			y0 = cache;
+			
+			cache = x1;
+			x1 = y1;
+			y1 = cache;
+			turn = true;
+		}
+		
+		if(x1<x0){
+		
+			cache = x0;
+			x0 = x1;
+			x1 = cache;
+			
+			cache = y0;
+			y0 = y1;
+			y1 = cache;
+		}
+		
+		y = y0;
+		
+		dx = x1-x0;
+		dy = y1-y0;
+		steigung = dy/dx;
+		
+		for(int x=x0;x<=x1;x++){
+			if(turn == false){
+				setPixel(x, (int)Math.round(y),c);
+			} else {
+				setPixel((int)Math.round(y), x, c);
+			}
+			y += steigung;
+		}
+	}
+	
+	public void replace(char oldChar, char newChar){
+		
+		for(int e=0;e<width;e++){
+			for(int f=0;f<height;f++){
+				if(oldChar == picture[e][f]){
+					setPixel(e, f, newChar);
+				}
+			}
+		}
+	}
+	/*
+	public boolean symmetric(){
+		String partLine = "";
+		boolean sym = true;
+		
+		for(int e=0;e<line.length()-width;e+=width){
+			partLine = line.substring(e, e+width);
+			
+			for(int f=0;f<width/2;f++){
+				if(partLine.charAt(f) != partLine.charAt(width-1-f)){
+					sym = false;
+					break;
+				}
+			}
+		}
+	return sym;
+	}
+	*/
+}

@@ -1,0 +1,42 @@
+import java.util.ArrayList;
+
+public class GetCentroidOperation{
+
+	private char c;
+
+	public GetCentroidOperation(char c){
+		this.c = c;	
+	}
+
+
+	AsciiImage execute(AsciiImage img) throws OperationException{
+
+		if(img.getCharset().indexOf(c) < 0){
+			throw new OperationException("Invalid char");
+		}
+
+		int xSum = 0, ySum = 0;
+		int centrX = 0, centrY = 0;
+		double point = 0.0;
+
+		AsciiImage result = new AsciiImage(img);
+
+		ArrayList<AsciiPoint> tmp = img.getPointList(c);
+		point = tmp.size();
+
+		if(tmp.size() == 0){
+			return null;
+		}
+
+		for(int q=0;q<point;q++){
+			xSum += tmp.get(q).getX();
+			ySum += tmp.get(q).getY();
+		}
+		centrX = (int)Math.round(xSum/point);
+		centrY = (int)Math.round(ySum/point);
+
+		AsciiPoint p = new AsciiPoint(centrX, centrY);
+
+	return result.getPixel(p);
+	}
+}
